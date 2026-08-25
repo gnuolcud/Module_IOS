@@ -1,45 +1,45 @@
-// ========= Locket Gold VIP Universal Injector (Duke) ========= //
-var obj = JSON.parse(typeof $response != "undefined" && $response.body || "{}");
-
-var goldObj = {
-  "expires_date": "2099-12-31T23:59:59Z",
-  "original_purchase_date": "2023-01-01T00:00:00Z",
-  "purchase_date": "2023-01-01T00:00:00Z",
-  "ownership_type": "PURCHASED",
-  "store": "app_store",
-  "is_sandbox": false,
-  "period_type": "normal"
+// ========= ID ========= //
+const mapping = {
+  '%E8%BD%A6%E7%A5%A8%E7%A5%A8': ['vip+watch_vip'],
+  'Locket': ['Gold']
 };
-
-var goldEntitlement = {
-  "expires_date": "2099-12-31T23:59:59Z",
-  "product_identifier": "locket_1600_1y",
-  "purchase_date": "2023-01-01T00:00:00Z"
-};
-
-if (!obj.subscriber) {
-  obj.subscriber = {};
-}
-if (!obj.subscriber.entitlements) {
-  obj.subscriber.entitlements = {};
-}
-if (!obj.subscriber.subscriptions) {
-  obj.subscriber.subscriptions = {};
-}
-
-// Inject all possible entitlement keys
-obj.subscriber.entitlements["Gold"] = goldEntitlement;
-obj.subscriber.entitlements["gold"] = goldEntitlement;
-obj.subscriber.entitlements["locket_gold"] = goldEntitlement;
-obj.subscriber.entitlements["pro"] = goldEntitlement;
-obj.subscriber.entitlements["premium"] = goldEntitlement;
-
-// Inject all possible subscription IDs
-obj.subscriber.subscriptions["locket_1600_1y"] = goldObj;
-obj.subscriber.subscriptions["com.locket.gold.yearly"] = goldObj;
-obj.subscriber.subscriptions["locket_gold_yearly"] = goldObj;
-obj.subscriber.subscriptions["locket_gold_monthly"] = goldObj;
-
+// =========   Phần cố định  ========= // 
+// =========  @gnuolcud ========= // 
+var ua = $request.headers["User-Agent"] || $request.headers["user-agent"],
+  obj = JSON.parse($response.body);
+obj.Attention = "Chúc mừng bạn! Vui lòng không bán hoặc chia sẻ cho người khác!";
+var gnuolcud = {
+      auto_resume_date: null,
+      display_name: "locket_1600_1y",
+      is_sandbox: true,
+      ownership_type: "PURCHASED",
+      billing_issues_detected_at: null,
+      management_url: "https://apps.apple.com/account/subscriptions",
+      period_type: "normal",
+      price: {
+          "amount": 399000.0,
+          "currency": "VND"
+      },
+      expires_date: "9999-01-09T10:10:14Z",
+      grace_period_expires_date: null,
+      refunded_at: null,
+      unsubscribe_detected_at: null,
+      original_purchase_date: "2005-01-09T10:10:15Z",
+      purchase_date: "2005-01-09T10:10:14Z",
+      store: "app_store",
+      store_transaction_id: "2000001108724193",
+  },
+  locketGold = {
+      grace_period_expires_date: null,
+      purchase_date: "2005-01-09T10:10:14Z",
+      product_identifier: "locket_1600_1y",
+      expires_date: "9999-01-09T10:10:14Z"
+  };
+const match = Object.keys(mapping).find(e => ua.includes(e));
+if (match) {
+  let [e, s] = mapping[match];
+  s ? (locketGold.product_identifier = s, obj.subscriber.subscriptions[s] = gnuolcud) : obj.subscriber.subscriptions["locket_1600_1y"] = gnuolcud, obj.subscriber.entitlements[e] = locketGold
+} else obj.subscriber.subscriptions["locket_1600_1y"] = gnuolcud, obj.subscriber.entitlements.pro = locketGold;
 $done({
   body: JSON.stringify(obj)
 });
