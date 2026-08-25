@@ -1,4 +1,4 @@
-/* BeautyPlus Crack By gnuolcud
+/* BeautyPlus Crack By duyvinh09
 */
 var objc = JSON.parse($response.body);
 
