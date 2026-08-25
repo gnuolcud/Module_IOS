@@ -8,7 +8,7 @@
 
 ## Bước 2: Cài Đặt Module
 1. Sao chép link module cần sử dụng:
-    - [Locket Module](https://raw.githubusercontent.com/gnuolcud/Module_IOS/refs/heads/main/modules/Locket_duyvinh09.sgmodule)
+    - [Locket Module](https://raw.githubusercontent.com/gnuolcud/Module_IOS/refs/heads/main/modules/Locket_gnuolcud.sgmodule)
     - [All In One Module](https://raw.githubusercontent.com/gnuolcud/Module_IOS/refs/heads/main/All_In_One.sgmodule)
 2. Mở ứng dụng **Shadowrocket**.
 3. Chuyển đến tab **Cấu Hình**.
