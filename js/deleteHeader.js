@@ -1,8 +1,9 @@
-/***********************************************
-> deleteHeader by gnuolcud
-***********************************************/	
-
-const version = 'V1.0.2';
-
-
-function setHeaderValue(e,a,d){var r=a.toLowerCase();r in e?e[r]=d:e[a]=d}var modifiedHeaders=$request.headers;setHeaderValue(modifiedHeaders,"X-RevenueCat-ETag",""),$done({headers:modifiedHeaders});
+// ========= deleteHeader for RevenueCat (Duke) ========= //
+var headers = $request.headers;
+delete headers["x-revenuecat-etag"];
+delete headers["X-RevenueCat-ETag"];
+delete headers["if-none-match"];
+delete headers["If-None-Match"];
+$done({
+  headers: headers
+});
