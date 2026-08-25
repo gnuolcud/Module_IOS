@@ -8,8 +8,6 @@
 #Shadowrocket Configuration - All In One VIP
 
 [Rule]
-# Chặn QUIC (HTTP/3 UDP) ép YouTube & các app chạy qua bộ lọc HTTPS
-DEST-PORT,443,REJECT,PROTOCOL,UDP
 AND,((DOMAIN-SUFFIX,googlevideo.com),(PROTOCOL,UDP)),REJECT
 AND,((DOMAIN,youtubei.googleapis.com),(PROTOCOL,UDP)),REJECT
 
@@ -60,9 +58,6 @@ Wink = type=http-response,pattern=^https:\/\/api-sub\.meitu\.com\/v2\/user\/vip_
 #Truecaller
 Truecaller = type=http-response,pattern=^https:\/\/premium-[^.]+\.truecaller\.com\/v\d+\/(subscriptions\/status|products\/apple)(\?.*)?$,requires-body=1,max-size=0,script-path=https://cdn.jsdelivr.net/gh/gnuolcud/Module_IOS@main/js/TrueCaller.js
 
-#Lightroom
-Lightroom = type=http-response,pattern=^https:\/\/photos\.adobe\.io\/v\d\/accounts,requires-body=1,max-size=0,script-path=https://cdn.jsdelivr.net/gh/gnuolcud/Module_IOS@main/js/lightroom.js,script-update-interval=-1
-
 #Kinemaster
 Kinemaster = type=http-response,pattern=^https:\/\/api-account\.kinemasters\.com\/v\d\/user\/subscribe$,requires-body=1,max-size=0,script-path=https://cdn.jsdelivr.net/gh/gnuolcud/Module_IOS@main/js/Kinemaster.js
 
@@ -79,9 +74,6 @@ deleteHeader = type=http-request,pattern=^https:\/\/api\.revenuecat\.com\/.+\/(r
 #RevenueCat VIP
 RevenueCatVip = type=http-response,pattern=^https:\/\/api\.(revenuecat|rc-backup)\.com\/.+\/(receipts$|subscribers\/[^/]+$),script-path=https://cdn.jsdelivr.net/gh/gnuolcud/Module_IOS@main/js/revenuecat.js,requires-body=true,max-size=-1,timeout=60
 
-#iTunes
-iTunes = type=http-response,pattern=^https?:\/\/buy\.itunes\.apple\.com\/verifyReceipt$,script-path=https://cdn.jsdelivr.net/gh/gnuolcud/Module_IOS@main/js/iTunes.js,requires-body=true,max-size=-1,timeout=60
-
 #Snow & Epik
 Snow = type=http-response,pattern=^https?:\/\/user-snow-api\.snow\.me\/v\d\/purchase\/subscription\/subscriber\/status,script-path=https://cdn.jsdelivr.net/gh/gnuolcud/Module_IOS@main/js/Snow.js,requires-body=true,max-size=-1,timeout=60
 
@@ -91,11 +83,8 @@ Meitu = type=http-response,pattern=^https?:\/\/(h5|api)\.xiuxiu\.meitu\.com\/v\d
 #NhacCuaTui VIP
 NhacCuaTui = type=http-response,pattern=^https:\/\/graph\.nhaccuatui\.com\/v\d\/user\/info,requires-body=1,script-path=https://cdn.jsdelivr.net/gh/gnuolcud/Module_IOS@main/js/nhaccuatui.js
 
-#Duolingo Super
-Duolingo = type=http-response,pattern=^https:\/\/.*\.duolingo\.com\/.*\/users\/.*,requires-body=1,script-path=https://cdn.jsdelivr.net/gh/gnuolcud/Module_IOS@main/js/Duolingo.js
-
 [Map Local]
 ^https?:\/\/[\w-]+\.googlevideo\.com\/initplayback.+&oad data-type=text data="" status-code=200
 
 [MITM]
-hostname = %APPEND%, *.googlevideo.com, youtubei.googleapis.com, www.youtube.com, s.youtube.com, -redirector*.googlevideo.com, premium*.truecaller.com, sub.store, api.revenuecat.com, api.rc-backup.com, buy.itunes.apple.com, spclient.wg.spotify.com, api-mobile.soundcloud.com, api.picsart.com, us-central1-alight-creative.cloudfunctions.net, api-sub.meitu.com, photos.adobe.io, ap*.intsig.net, api-account.kinemasters.com, api.mr.pixocial.com, newbeee-api.beautyplus.com, user-snow-api.snow.me, h5.xiuxiu.meitu.com, api.xiuxiu.meitu.com, graph.nhaccuatui.com, *.duolingo.com
+hostname = %APPEND%, *.googlevideo.com, youtubei.googleapis.com, www.youtube.com, s.youtube.com, -redirector*.googlevideo.com, premium*.truecaller.com, sub.store, api.revenuecat.com, api.rc-backup.com, spclient.wg.spotify.com, *spclient.spotify.com, api-mobile.soundcloud.com, api.picsart.com, us-central1-alight-creative.cloudfunctions.net, api-sub.meitu.com, ap*.intsig.net, api-account.kinemasters.com, api.mr.pixocial.com, newbeee-api.beautyplus.com, user-snow-api.snow.me, h5.xiuxiu.meitu.com, api.xiuxiu.meitu.com, graph.nhaccuatui.com
