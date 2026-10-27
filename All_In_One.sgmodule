@@ -14,6 +14,8 @@ AND,((DOMAIN-SUFFIX,spotify.com),(PROTOCOL,UDP)),REJECT
 http-request ^https:\/\/(spclient\.wg\.spotify\.com|.*-spclient\.spotify\.com(:443)?)\/user-customization-service\/v1\/customize$ header-del if-none-match
 
 [Url Rewrite]
+# Chặn quảng cáo trong app Spotify (/pendragon) — theo devchristian1337
+^https:\/\/(spclient\.wg|.*-spclient)\.spotify\.com(:443)?\/pendragon _ reject-dict
 # Chặn quảng cáo Google Video & YouTube
 ^https?:\/\/[\w-]+\.googlevideo\.com\/(?!(dclk_video_ads|videoplayback\?)).+&oad _ reject-200
 ^https?:\/\/(www|s)\.youtube\.com\/api\/stats\/ads _ reject-200
