@@ -14,8 +14,11 @@ AND,((DOMAIN-SUFFIX,spotify.com),(PROTOCOL,UDP)),REJECT
 http-request ^https:\/\/(spclient\.wg\.spotify\.com|.*-spclient\.spotify\.com(:443)?)\/user-customization-service\/v1\/customize$ header-del if-none-match
 
 [Url Rewrite]
-# Chặn quảng cáo trong app Spotify (/pendragon) — theo devchristian1337
+# Spotify: chặn endpoint quảng cáo (theo devchristian1337)
 ^https:\/\/(spclient\.wg|.*-spclient)\.spotify\.com(:443)?\/pendragon _ reject-dict
+^https:\/\/(spclient\.wg|.*-spclient)\.spotify\.com(:443)?\/watch-feed-entrypoints\/v.\/discovery-from-seed _ reject-dict
+^https:\/\/.*-spclient\.spotify\.com(:443)?\/pam-view-service\/ _ reject-dict
+37i9dQZF1EYkqdzj48dyYq _ reject-dict
 # Chặn quảng cáo Google Video & YouTube
 ^https?:\/\/[\w-]+\.googlevideo\.com\/(?!(dclk_video_ads|videoplayback\?)).+&oad _ reject-200
 ^https?:\/\/(www|s)\.youtube\.com\/api\/stats\/ads _ reject-200
@@ -38,10 +41,10 @@ youtube.response = type=http-response,pattern=^https:\/\/youtubei\.googleapis\.c
 
 #Spotify
 spotify-json = type=http-request,pattern=^https:\/\/(spclient\.wg\.spotify\.com|.*-spclient\.spotify\.com(:443)?)\/(artistview\/v1\/artist|album-entity-view\/v2\/album)\/,requires-body=0,script-path=https://raw.githubusercontent.com/gnuolcud/Module_IOS/refs/heads/main/js/spotify-json.js
-# Bản mới (devchristian1337, 8/10/2026) thay cho bản app2smile cũ (25/2) — quay lại bản cũ: xoá dòng dưới, bỏ dấu # dòng '#OLD'
-# Đang thử: bản 'remote' (eevee). Nếu lỗi: xoá dòng dưới, bỏ dấu # ở dòng '#EV3' (bản local)
-spotify-proto-eevee = type=http-response,pattern=^https:\/\/(spclient\.wg\.spotify\.com|.*-spclient\.spotify\.com(:443)?)\/(bootstrap\/v1\/bootstrap|user-customization-service\/v1\/customize)(\?.*)?$,requires-body=1,binary-body-mode=1,max-size=0,timeout=10,script-path=https://raw.githubusercontent.com/devchristian1337/loon-plugins/refs/heads/main/Scripts/Spotify/spot-proto-eevee.js
-#EV3 spotify-proto-ev3 = type=http-response,pattern=^https:\/\/(spclient\.wg\.spotify\.com|.*-spclient\.spotify\.com(:443)?)\/(bootstrap\/v1\/bootstrap|user-customization-service\/v1\/customize)(\?.*)?$,requires-body=1,binary-body-mode=1,max-size=0,timeout=10,script-path=https://raw.githubusercontent.com/devchristian1337/loon-plugins/refs/heads/main/Scripts/Spotify/spot-proto-ev3.js
+# ev3 = allow-list (thay toàn bộ config bằng bản Premium cứng, không lọt flag mới)
+# eevee = deny-list (chỉ tắt flag theo tên, Spotify thêm flag = lọt). Giữ dự phòng.
+spotify-proto-ev3 = type=http-response,pattern=^https:\/\/(spclient\.wg\.spotify\.com|.*-spclient\.spotify\.com(:443)?)\/(bootstrap\/v1\/bootstrap|user-customization-service\/v1\/customize)(\?.*)?$,requires-body=1,binary-body-mode=1,max-size=0,timeout=10,script-path=https://raw.githubusercontent.com/devchristian1337/loon-plugins/refs/heads/main/Scripts/Spotify/spot-proto-ev3.js
+#EEVEE spotify-proto-eevee = type=http-response,pattern=^https:\/\/(spclient\.wg\.spotify\.com|.*-spclient\.spotify\.com(:443)?)\/(bootstrap\/v1\/bootstrap|user-customization-service\/v1\/customize)(\?.*)?$,requires-body=1,binary-body-mode=1,max-size=0,timeout=10,script-path=https://raw.githubusercontent.com/devchristian1337/loon-plugins/refs/heads/main/Scripts/Spotify/spot-proto-eevee.js
 #OLD spotify-proto = type=http-response,pattern=^https:\/\/(spclient\.wg\.spotify\.com|.*-spclient\.spotify\.com(:443)?)\/(bootstrap\/v1\/bootstrap|user-customization-service\/v1\/customize)$,requires-body=1,binary-body-mode=1,max-size=0,script-path=https://raw.githubusercontent.com/gnuolcud/Module_IOS/refs/heads/main/js/spotify-proto.js,script-update-interval=0
 
 #Spotify AdBlock (devchristian1337, 10/2026 — chặn quảng cáo hình, giữ nguyên mở Premium ở trên)
